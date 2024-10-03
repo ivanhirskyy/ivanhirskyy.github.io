@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ivan Hirskyy's Portfolio">
+  <title>Ivan Hirskyy - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    /*
+    1. Use a more-intuitive box-sizing model.
+    */
+    *, *::before, *::after {
+    box-sizing: border-box;
+    }
+    /*
+    2. Remove default margin
+    */
+    * {
+    margin: 0;
+    }
+    /*
+    Typographic tweaks!
+    3. Add accessible line-height
+    4. Improve text rendering
+    */
+    body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    }
+    /*
+    5. Improve media defaults
+    */
+    img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    }
+    /*
+    6. Remove built-in form typography styles
+    */
+    input, button, textarea, select {
+    font: inherit;
+    }
+    /*
+    7. Avoid text overflows
+    */
+    p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    }
+    /*
+    8. Create a root stacking context
+    */
+    #root, #__next {
+    isolation: isolate;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Fira Code', monospace;
+      background-color: #282c34;
+      color: #abb2bf;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar / File Explorer */
+    .sidebar {
+      width: 250px;
+      min-width: 210px;
+      background-color: #21252b;
+      padding: 10px;
+      position: relative;
+      border-right: 1px solid #3e4451;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h3 {
+      color: #61dafb;
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      flex-grow: 1;
+    }
+
+    .sidebar ul li {
+      padding: 8px 0;
+    }
+
+    .sidebar ul li a {
+      color: #abb2bf;
+      text-decoration: none;
+    }
+
+    .resizer{
+      background-color: #3e4451;
+      cursor: col-resize;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Resizer between sidebar and editor */
+    .resizer.vertical {
+        width: 5px;
+        cursor: col-resize;
+    }
+
+    .resizer.horizontal {
+      height: 5px;
+      cursor: row-resize;
+    }
+
+    .resizer.active, .resizer:hover {
+      background-color: #61dafb;
+    }
+
+
+    /* Editor and Terminal container */
+    .main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Code Editor Window */
+    .editor {
+      flex-grow: 1;
+      padding: 20px;
+      gap: 20px;
+      display: flex;
+      flex-direction: column;
+      background-color: #282c34;
+      position: relative;
+    }
+
+    .editor-header {
+      background-color: #21252b;
+      color: #61dafb;
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    .code-window {
+      background-color: #282c34;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .code-window pre {
+      margin: 0;
+      font-size: 16px;
+    }
+
+
+    /* Terminal */
+    .terminal {
+      background-color: #1e2127;
+      padding:20px;
+      color: #61dafb;
+      overflow-y: auto;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .terminal-log {
+      color: #abb2bf;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .terminal-input {
+      background-color: transparent;
+      border: none;
+      color: #61dafb;
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .terminal-input-wrapper {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Interactive elements */
+    .file-link:hover {
+      color: #61dafb;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar / File Explorer -->
+  <div class="sidebar">
+    <h3>File Explorer</h3>
+    <ul>
+      <li><a href="#" class="file-link" onclick="showFileContent('about')">about.html</a></li>
+      <li><a href="#" class="file-link" onclick="showFileContent('projects')">projects.html</a></li>
+      <li><a href="#" class="file-link" onclick="showFileContent('contact')">contact.html</a></li>
+    </ul>
+  </div>
+
+  <!-- Vertical Resizer between Sidebar and Editor -->
+  <div class="resizer vertical" id="vertical-resizer"></div>
+
+  <!-- Main Editor and Terminal Section -->
+  <div class="main">
+    <!-- Code Editor Section -->
+    <div class="editor" id="editor">
+      <div class="editor-header" id="opened-file">ivan-hirskyy</div>
+      <div class="code-window" id="code-window">
+        <pre>// Click a file from the sidebar to load its content!</pre>
+      </div>
+    </div>
+
+    <!-- Horizontal Resizer between Editor and Terminal -->
+    <div class="resizer horizontal" id="horizontal-resizer"></div>
+
+    <!-- Terminal Section -->
+    <div class="terminal" id="terminal">
+      <div class="terminal-log" id="terminal-log">Terminal: Ready</div>
+      <div class="terminal-input-wrapper">
+        $<input type="text" class="terminal-input" id="terminal-input" autofocus placeholder="Type a command..." onkeydown="handleCommand(event)">
+    </div>
+    </div>
+  </div>
+
+  <script>
+    // Example content for different "files"
+    const files = {
+      about: `<pre>/*
+      About Me:
+      - Name: Ivan Hirskyy
+      - Role: Frontend Developer
+      - Skills: Vue.js, Nuxt.js, TypeScript, CSS
+
+      I am a creative front-end developer with a passion for building
+      high-quality, scalable web applications.
+      */</pre>`,
+
+      projects: `<pre>/*
+      My Projects:
+      1. Barbier - Barbershop booking platform (Vue.js, Nuxt.js, Supabase)
+      2. CMS Product - A new CMS built for marketing teams (Vue.js, Nuxt.js, TypeScript, SASS)
+      */</pre>`,
+
+      contact: `<pre>/*
+      Contact Me:
+      - Email: ivan.hirskyy@example.com
+      - LinkedIn: linkedin.com/in/ivan-hirskyy
+      */</pre>`
+    };
+
+    // Terminal history array
+    let terminalHistory = ["Terminal: Ready..."];
+
+    // Function to show file content in the code editor
+    function showFileContent(file) {
+      document.getElementById('code-window').innerHTML = files[file];
+      logToTerminal('Opened ' + file + '.html');
+      document.getElementById('opened-file').innerText = file + '.html';
+    }
+
+    // Function to log commands to the terminal with history
+    function logToTerminal(command) {
+      terminalHistory.push(command);
+      const terminalLog = document.getElementById('terminal-log');
+      terminalLog.innerHTML = terminalHistory.join("\n");
+
+      // Scroll to the bottom of the terminal when a new command is logged
+      const terminalDiv = document.getElementById('terminal');
+      terminalDiv.scrollTop = terminalDiv.scrollHeight;
+    }
+
+    // Handle terminal input commands
+    function handleCommand(event) {
+      if (event.key === "Enter") {
+        const input = document.getElementById('terminal-input').value.trim();
+        document.getElementById('terminal-input').value = ''; // Clear input
+        processCommand(input);
+      }
+    }
+
+    // Function to process terminal commands
+    function processCommand(command) {
+      if (command === "") return;
+
+      switch (command.toLowerCase()) {
+        case "help":
+          logToTerminal('Available commands:\n- help: Show available commands\n- clear: Clear terminal\n- about: View about info\n- projects: View projects\n- contact: View contact info');
+          break;
+        case "clear":
+          terminalHistory = [];
+          logToTerminal('Terminal cleared.');
+          break;
+        case "about":
+          logToTerminal('About Me: Ivan Hirskyy, Frontend Developer. Skilled in Vue.js, Nuxt.js, TypeScript.');
+          break;
+        case "projects":
+          logToTerminal('Projects: Barbier (booking platform), Ecommerce Website, CMS Product.');
+          break;
+        case "contact":
+          logToTerminal('Contact Info: Email: ivan.hirskyy@example.com, LinkedIn: linkedin.com/in/ivan-hirskyy');
+          break;
+        default:
+          logToTerminal(`Unknown command: ${command}. Type 'help' for a list of commands.`);
+          break;
+      }
+    }
+
+    // Resizer logic between Sidebar and Editor
+    const verticalResizer = document.getElementById('vertical-resizer');
+    const sidebar = document.querySelector('.sidebar');
+    const editor = document.querySelector('.editor');
+    let isResizingVertically = false;
+
+    verticalResizer.addEventListener('mousedown', (e) => {
+      isResizingVertically = true;
+      verticalResizer.classList.add('active');
+      document.addEventListener('mousemove', resizeSidebar);
+      document.addEventListener('mouseup', stopResizingVertically);
+    });
+
+    function resizeSidebar(e) {
+      if (isResizingVertically && e.clientX < window.innerWidth / 3) {
+        sidebar.style.width = `${e.clientX}px`;
+      }
+    }
+
+    function stopResizingVertically() {
+      isResizingVertically = false;
+        verticalResizer.classList.remove('active');
+      document.removeEventListener('mousemove', resizeSidebar);
+      document.removeEventListener('mouseup', stopResizingVertically);
+    }
+
+    // Resizer logic between Editor and Terminal
+    const horizontalResizer = document.getElementById('horizontal-resizer');
+    const terminal = document.querySelector('.terminal');
+    let isResizingHorizontally = false;
+
+    horizontalResizer.addEventListener('mousedown', (e) => {
+      isResizingHorizontally = true;
+      horizontalResizer.classList.add('active');
+      document.addEventListener('mousemove', resizeTerminal);
+      document.addEventListener('mouseup', stopResizingHorizontally);
+    });
+
+    function resizeTerminal(e) {
+      if (isResizingHorizontally) {
+        const height = window.innerHeight - e.clientY;
+
+        if(height < 200 || height > window.innerHeight - 200) return;
+
+        terminal.style.height = `${height}px`;
+        editor.style.height = `${e.clientY - 5}px`;
+      }
+    }
+
+    function stopResizingHorizontally() {
+      isResizingHorizontally = false;
+      horizontalResizer.classList.remove('active');
+      document.removeEventListener('mousemove', resizeTerminal);
+      document.removeEventListener('mouseup', stopResizingHorizontally);
+    }
+  </script>
+
+</body>
+</html>
