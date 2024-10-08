@@ -1,18 +1,5 @@
 <script lang="ts" setup>
-const files = ref([
-  {
-    name: 'about',
-    link: '/',
-  },
-  {
-    name: 'projects',
-    link: '/projects',
-  },
-  {
-    name: 'contacts',
-    link: '/contacts',
-  },
-]);
+const { files } = useFiles();
 </script>
 <template>
   <div
@@ -22,9 +9,11 @@ const files = ref([
       <li
         v-for="file in files"
         :key="file.name"
-        class="cursor-pointer rounded px-4 py-2 hover:bg-gray-800"
+        class="cursor-pointer rounded hover:bg-gray-800"
       >
-        <NuxtLink :to="file.link">{{ file.name }}</NuxtLink>
+        <NuxtLink :to="file.link" class="block px-4 py-2">
+          {{ file.name }}
+        </NuxtLink>
       </li>
     </ul>
   </div>

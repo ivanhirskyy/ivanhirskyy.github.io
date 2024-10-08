@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { templateRef, useElementSize } from '@vueuse/core';
 const logs = ref([
   "Welcome to the terminal! Type 'help' for a list of commands.",
 ]);
@@ -10,6 +9,11 @@ const terminal = useTemplateRef('terminal');
 
 const logToTerminal = (message: string) => {
   console.log('message', message);
+  if (logs.value.length > 20) {
+    // Remove the first element if the logs exceed 100
+    logs.value.shift();
+  }
+
   logs.value.push(message);
 };
 
@@ -24,7 +28,6 @@ const processCommand = async (command: string) => {
       break;
     case 'clear':
       logs.value = [];
-      logToTerminal('Terminal cleared.');
       break;
     case 'about':
       logToTerminal(
@@ -60,14 +63,14 @@ const handleKeydown = () => {
 
 <template>
   <div
-    id="chentric"
     ref="terminal"
     tabindex="0"
     class="flex max-h-80 min-h-64 cursor-default flex-col gap-2 overflow-y-auto bg-gray-900 px-4 py-6 font-mono leading-6 text-white"
     @click="commandInput?.focus()"
   >
-    <div class="flex flex-col gap-1">
-      <p v-for="(log, index) in logs" :key="index" class="whitespace-pre">
+    <div v-if="logs.length" class="flex flex-col">
+      <p v-for="(log, index) in logs" :key="index">
+        <!-- class="whitespace-pre" -->
         {{ log }}
       </p>
     </div>
@@ -84,34 +87,3 @@ const handleKeydown = () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-#terminal {
-  border: 2px solid #333;
-  width: 600px;
-  height: 400px;
-  padding: 10px;
-  position: relative;
-  background-color: #000;
-  overflow-y: auto;
-  outline: none; /* Remove focus outline */
-}
-
-#blinking-cursor {
-  color: #00ff00;
-  position: absolute;
-  animation: blink 1s step-end infinite;
-  width: 4px;
-  height: 20px;
-}
-
-@keyframes blink {
-  from,
-  to {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-</style>
