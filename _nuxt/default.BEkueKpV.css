@@ -1,0 +1,1 @@
+#terminal[data-v-3620b430]{background-color:#000;border:2px solid #333;height:400px;outline:none;overflow-y:auto;padding:10px;position:relative;width:600px}#blinking-cursor[data-v-3620b430]{animation:blink-3620b430 1s step-end infinite;color:#0f0;height:20px;position:absolute;width:4px}@keyframes blink-3620b430{0%,to{opacity:0}50%{opacity:1}}
