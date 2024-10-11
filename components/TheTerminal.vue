@@ -65,25 +65,26 @@ const handleKeydown = () => {
   <div
     ref="terminal"
     tabindex="0"
-    class="flex max-h-80 min-h-64 cursor-default flex-col gap-2 overflow-y-auto bg-gray-900 px-4 py-6 font-mono leading-6 text-white"
+    class="max-h-80 min-h-40 cursor-default overflow-y-auto bg-gray-900 px-8 py-6 font-mono leading-6 text-white"
     @click="commandInput?.focus()"
   >
-    <div v-if="logs.length" class="flex flex-col">
-      <p v-for="(log, index) in logs" :key="index">
-        <!-- class="whitespace-pre" -->
-        {{ log }}
-      </p>
-    </div>
+    <div class="flex max-w-7xl flex-col gap-2">
+      <div v-if="logs.length" class="flex flex-col">
+        <p v-for="(log, index) in logs" :key="index" class="whitespace-pre">
+          {{ log }}
+        </p>
+      </div>
 
-    <div class="flex items-center gap-2">
-      <span>FE:\ivanhirskyy></span>
-      <input
-        ref="commandInput"
-        v-model="currentCommand"
-        class="terminal-input cursor-default border-none bg-transparent outline-none"
-        autofocus
-        @keydown.enter="handleKeydown"
-      />
+      <div class="flex items-center gap-2">
+        <span>FE:\ivanhirskyy></span>
+        <input
+          ref="commandInput"
+          v-model="currentCommand"
+          class="terminal-input cursor-default border-none bg-transparent outline-none"
+          autofocus
+          @keydown.enter="handleKeydown"
+        />
+      </div>
     </div>
   </div>
 </template>

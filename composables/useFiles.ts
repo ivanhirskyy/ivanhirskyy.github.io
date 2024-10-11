@@ -1,16 +1,8 @@
 export const useFiles = () => {
   const files = useState('files', () => [
     {
-      name: 'about',
+      name: 'About',
       link: '/',
-    },
-    {
-      name: 'projects',
-      link: '/projects',
-    },
-    {
-      name: 'contacts',
-      link: '/contacts',
     },
   ]);
 
@@ -34,8 +26,6 @@ export const useFiles = () => {
         return import('@/content/about');
       case 'projects':
         return import('@/content/projects');
-      case 'contacts':
-        return import('@/content/contacts');
       default:
         return import('@/content/about');
     }

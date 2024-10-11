@@ -3,7 +3,9 @@
     <div class="flex h-full border border-[1px] border-gray-800">
       <FileExplorer />
       <div class="flex h-full flex-grow flex-col">
-        <slot />
+        <div class="h-full max-w-7xl overflow-y-auto px-8 py-4 text-white">
+          <slot />
+        </div>
         <TheTerminal />
       </div>
     </div>
