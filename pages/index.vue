@@ -23,54 +23,61 @@ const mainTechnologies = [
 <template>
   <div>
     <!-- Header Section -->
-    <header class="space-y-4">
-      <div class="flex items-center gap-4">
-        <NuxtImg
-          src="./avatar.webp"
-          width="76"
-          height="76"
-          class="rounded-full"
-          alt="Ivan Hirskyy"
-        />
-        <div class="space-y-2">
-          <h1 class="text-4xl font-bold text-white">Ivan Hirskyy</h1>
-          <div class="flex items-center gap-4 text-xl text-gray-400">
-            Frontend Developer
-            <div class="flex items-center gap-4">
-              <!--  //on hover add text shadow -->
-              <NuxtLink
-                v-for="tech in mainTechnologies"
-                :key="tech.name"
-                :to="tech.link"
-                class="custom-class flex cursor-pointer items-center gap-1 transition-all duration-150"
-                :style="{
-                  color: tech.color,
-                }"
-              >
-                {{ tech.name }}
-                <Icon :name="tech.icon" size="25" />
-              </NuxtLink>
+    <header class="relative flex justify-between gap-4">
+      <div class="space-y-6 lg:space-y-4">
+        <div class="flex items-center gap-4">
+          <NuxtImg
+            src="./avatar.webp"
+            width="76"
+            height="76"
+            class="rounded-full"
+            alt="Ivan Hirskyy"
+          />
+          <div class="space-y-2">
+            <h1 class="text-4xl font-bold text-white">Ivan Hirskyy</h1>
+            <div
+              class="flex flex-col gap-2 text-xl text-gray-400 lg:flex-row lg:items-center lg:gap-4"
+            >
+              Frontend Developer
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <!--  //on hover add text shadow -->
+                <NuxtLink
+                  v-for="tech in mainTechnologies"
+                  :key="tech.name"
+                  :to="tech.link"
+                  class="custom-class flex cursor-pointer items-center gap-1 transition-all duration-150"
+                  :style="{
+                    color: tech.color,
+                  }"
+                >
+                  {{ tech.name }}
+                  <Icon :name="tech.icon" size="25" />
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="mt-2 flex gap-8 text-gray-400">
-        <p class="flex items-center gap-1">
-          <Icon name="mdi:map-marker" size="18" /> Porto, Portugal
-        </p>
-        <a
-          href="tel:+351938028711"
-          class="flex items-center gap-1 text-teal-400 hover:underline"
+        <div
+          class="mt-2 flex flex-col gap-4 text-gray-400 lg:flex-row lg:gap-8"
         >
-          <Icon name="mdi:phone-classic" size="18" />+351 938 028 711
-        </a>
-        <a
-          href="mailto:ivan.hirskyy@gmail.com"
-          class="flex items-center gap-1 text-teal-400 hover:underline"
-        >
-          <Icon name="mdi:envelope" size="18" />ivan.hirskyy@gmail.com
-        </a>
+          <p class="flex items-center gap-1">
+            <Icon name="mdi:map-marker" size="18" /> Porto, Portugal
+          </p>
+          <a
+            href="tel:+351938028711"
+            class="flex items-center gap-1 text-teal-400 hover:underline"
+          >
+            <Icon name="mdi:phone-classic" size="18" />+351 938 028 711
+          </a>
+          <a
+            href="mailto:ivan.hirskyy@gmail.com"
+            class="flex items-center gap-1 text-teal-400 hover:underline"
+          >
+            <Icon name="mdi:envelope" size="18" />ivan.hirskyy@gmail.com
+          </a>
+        </div>
       </div>
+      <AnalogClock class="max-md:absolute max-md:bottom-0 max-md:right-0" />
     </header>
 
     <hr class="my-4 border-gray-600" />
@@ -150,8 +157,6 @@ const mainTechnologies = [
             Nuxt, Node, Express, JQuery
           </p>
           <p><span class="font-semibold">CSS:</span> Tailwind, SASS</p>
-        </div>
-        <div>
           <p>
             <span class="font-semibold">Databases:</span> MongoDB, SQL Server,
             MySQL, PostgreSQL

@@ -1,14 +1,17 @@
 <script setup lang="ts">
-const logs = ref([
-  "Welcome to the terminal! Type 'help' for a list of commands.",
-]);
+const defaultMessage =
+  "Welcome to the terminal! Type 'help' for a list of commands.";
+const logs = ref([defaultMessage]);
 const currentCommand = ref('');
 
 const commandInput = useTemplateRef('commandInput');
 const terminal = useTemplateRef('terminal');
 
+let isResizing = ref(false);
+let startY = ref(0);
+let startHeight = ref(160);
+
 const logToTerminal = (message: string) => {
-  console.log('message', message);
   if (logs.value.length > 20) {
     // Remove the first element if the logs exceed 100
     logs.value.shift();
@@ -20,36 +23,41 @@ const logToTerminal = (message: string) => {
 const processCommand = async (command: string) => {
   if (command === '' || !terminal.value) return;
 
+  let message = '';
+
   switch (command.toLowerCase()) {
     case 'help':
-      logToTerminal(
-        'Available commands:\n- help: Show available commands\n- clear: Clear terminal\n- about: View about info\n- projects: View projects\n- contact: View contact info',
-      );
+      message =
+        'Available commands:\n- help: Show available commands\n- clear: Clear the terminal\n- date: Show the current date\n- time: Show the current time\n- about: Show information about me\n- projects: Show information about my projects\n- contact: Show my contact information';
       break;
     case 'clear':
-      logs.value = [];
+      logs.value = [defaultMessage];
+      break;
+    case 'date':
+      message = 'Today is ' + new Date().toDateString();
+      break;
+    case 'time':
+      message = 'Now is ' + new Date().toLocaleTimeString();
       break;
     case 'about':
-      logToTerminal(
-        'About Me: Ivan Hirskyy, Frontend Developer. Skilled in Vue.js, Nuxt.js, TypeScript.',
-      );
+      message =
+        'About Me: Ivan Hirskyy, Frontend Developer. Skilled in Vue.js, Nuxt.js, TypeScript.';
       break;
     case 'projects':
-      logToTerminal(
-        'Projects: Barbier (booking platform), Ecommerce Website, CMS Product.',
-      );
+      message =
+        'Projects: Barbier (booking platform), Ecommerce Website, CMS Product.';
       break;
     case 'contact':
-      logToTerminal(
-        'Contact Info: Email: ivan.hirskyy@example.com, LinkedIn: linkedin.com/in/ivan-hirskyy',
-      );
+      message =
+        'Contact Info: Email: ivan.hirskyy@example.com, LinkedIn: linkedin.com/in/ivan-hirskyy';
       break;
+
     default:
-      logToTerminal(
-        `Unknown command: '${command}'. Type 'help' for a list of commands.`,
-      );
+      message = `Unknown command: '${command}'. Type 'help' for a list of commands.`;
       break;
   }
+
+  if (message) logToTerminal(command + '\n' + message);
 
   await nextTick();
   terminal.value.scrollTop = terminal.value.scrollHeight;
@@ -59,28 +67,84 @@ const processCommand = async (command: string) => {
 const handleKeydown = () => {
   processCommand(currentCommand.value);
 };
+
+const handleMouseDown = (event: MouseEvent) => {
+  if (!terminal.value) return;
+  isResizing.value = true;
+  startY.value = event.clientY;
+  startHeight.value = terminal.value.clientHeight;
+
+  // Prevent text selection while resizing
+  event.preventDefault();
+};
+
+const handleMouseUp = () => {
+  if (!terminal.value) return;
+  isResizing.value = false;
+  startY.value = 0;
+  startHeight.value = 0;
+};
+
+const handleResize = (event: MouseEvent) => {
+  if (!isResizing.value || !terminal.value) return;
+
+  const newHeight = startHeight.value + (startY.value - event.clientY);
+  terminal.value.style.height = `${newHeight}px`;
+};
+
+onMounted(() => {
+  document.addEventListener('mousemove', handleResize);
+  document.addEventListener('mouseup', handleMouseUp);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('mousemove', handleResize);
+  document.removeEventListener('mouseup', handleMouseUp);
+});
 </script>
 
 <template>
   <div
+    class="relative left-0 top-0 z-10 h-[3px] w-full cursor-ns-resize transition-all duration-300"
+    :style="{ 'background-color': isResizing ? '#F6EB61' : '#fff' }"
+    @mousedown="handleMouseDown"
+  >
+    <div
+      class="absolute left-1/2 top-1/2 flex h-[16px] w-[24px] -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-md bg-yellow-300"
+    >
+      <Icon name="mdi:resize-vertical" class="text-black" />
+    </div>
+  </div>
+  <div
     ref="terminal"
     tabindex="0"
-    class="max-h-80 min-h-40 cursor-default overflow-y-auto bg-gray-900 px-8 py-6 font-mono leading-6 text-white"
+    class="relative max-h-[50dvh] min-h-[160px] cursor-default overflow-y-auto border-t border-gray-700 bg-gray-900 px-4 py-4 font-mono leading-6 text-white lg:px-8 lg:py-4"
+    :class="{ 'select-none': isResizing }"
     @click="commandInput?.focus()"
   >
-    <div class="flex max-w-7xl flex-col gap-2">
-      <div v-if="logs.length" class="flex flex-col">
-        <p v-for="(log, index) in logs" :key="index" class="whitespace-pre">
-          {{ log }}
-        </p>
+    <!-- make resize bar div -->
+
+    <div class="flex max-w-7xl flex-col gap-3">
+      <div v-if="logs.length" class="flex flex-col space-y-3">
+        <div
+          v-for="(log, index) in logs"
+          :key="index"
+          class="whitespace-break-spaces"
+        >
+          <p>
+            <span v-if="index > 0" class="mr-2 text-green-400"
+              >FE:\ivanhirskyy></span
+            >{{ log }}
+          </p>
+        </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <span>FE:\ivanhirskyy></span>
+        <span class="text-green-400">FE:\ivanhirskyy></span>
         <input
           ref="commandInput"
           v-model="currentCommand"
-          class="terminal-input cursor-default border-none bg-transparent outline-none"
+          class="terminal-input grow cursor-default border-none bg-transparent text-yellow-400 outline-none"
           autofocus
           @keydown.enter="handleKeydown"
         />
