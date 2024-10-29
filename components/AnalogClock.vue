@@ -100,8 +100,9 @@ const drawTextInsideClock = (ctx: CanvasRenderingContext2D) => {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
-  // Position the text in the center of the clock
-  ctx.fillText(text, 0, 0);
+  // Position the text slightly below the center of the clock
+  const offsetY = 15;
+  ctx.fillText(text, 0, offsetY);
 };
 
 const setCanvasClock = () => {

@@ -24,42 +24,39 @@ const mainTechnologies = [
   <div>
     <!-- Header Section -->
     <header class="relative flex justify-between gap-4">
-      <div class="space-y-6 lg:space-y-4">
-        <div class="flex items-center gap-4">
+      <div class="space-y-4 lg:space-y-6">
+        <div class="header-area flex items-start gap-x-4 gap-y-3 sm:gap-y-2">
           <NuxtImg
             src="./avatar.webp"
-            width="76"
-            height="76"
-            class="rounded-full"
+            width="80"
+            height="80"
+            class="avatar aspect-square max-h-full rounded-full"
             alt="Ivan Hirskyy"
           />
-          <div class="space-y-2">
-            <h1 class="text-4xl font-bold text-white">Ivan Hirskyy</h1>
-            <div
-              class="flex flex-col gap-2 text-xl text-gray-400 lg:flex-row lg:items-center lg:gap-4"
+          <h1 class="name text-3xl font-bold text-white sm:text-4xl">
+            Ivan Hirskyy
+          </h1>
+
+          <p class="title text-xl text-gray-400">Frontend Developer</p>
+        </div>
+        <div>
+          <div class="tech flex flex-wrap items-center gap-x-4 gap-y-2">
+            <!--  //on hover add text shadow -->
+            <NuxtLink
+              v-for="tech in mainTechnologies"
+              :key="tech.name"
+              :to="tech.link"
+              class="custom-class flex cursor-pointer items-center gap-1 text-xl transition-all duration-150"
+              :style="{
+                color: tech.color,
+              }"
             >
-              Frontend Developer
-              <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-                <!--  //on hover add text shadow -->
-                <NuxtLink
-                  v-for="tech in mainTechnologies"
-                  :key="tech.name"
-                  :to="tech.link"
-                  class="custom-class flex cursor-pointer items-center gap-1 transition-all duration-150"
-                  :style="{
-                    color: tech.color,
-                  }"
-                >
-                  {{ tech.name }}
-                  <Icon :name="tech.icon" size="25" />
-                </NuxtLink>
-              </div>
-            </div>
+              {{ tech.name }}
+              <Icon :name="tech.icon" size="25" />
+            </NuxtLink>
           </div>
         </div>
-        <div
-          class="mt-2 flex flex-col gap-4 text-gray-400 lg:flex-row lg:gap-8"
-        >
+        <div class="flex flex-wrap gap-4 text-gray-400 lg:gap-8">
           <p class="flex items-center gap-1">
             <Icon name="mdi:map-marker" size="18" /> Porto, Portugal
           </p>
@@ -77,7 +74,7 @@ const mainTechnologies = [
           </a>
         </div>
       </div>
-      <AnalogClock class="max-md:absolute max-md:bottom-0 max-md:right-0" />
+      <!-- <AnalogClock class="max-md:absolute max-md:bottom-0 max-md:right-0" /> -->
     </header>
 
     <hr class="my-4 border-gray-600" />
@@ -174,5 +171,37 @@ const mainTechnologies = [
 .custom-class:hover,
 .custom-class:hover span {
   text-shadow: 0 0 8px currentColor;
+}
+
+.header-area {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'avatar name'
+    'avatar title';
+}
+
+@media (max-width: 420px) {
+  .header-area {
+    grid-template-areas:
+      'avatar name'
+      'title title';
+  }
+}
+
+.header-area .avatar {
+  grid-area: avatar;
+}
+
+.header-area .name {
+  grid-area: name;
+}
+
+.header-area .title {
+  grid-area: title;
+}
+
+.header-area .tech {
+  grid-area: tech;
 }
 </style>

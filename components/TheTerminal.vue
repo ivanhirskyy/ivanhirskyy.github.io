@@ -129,7 +129,8 @@ onUnmounted(() => {
         <div
           v-for="(log, index) in logs"
           :key="index"
-          class="whitespace-break-spaces"
+          class="whitespace-break-spaces break-all"
+          style="overflow-wrap: anywhere; word-break: normal"
         >
           <p>
             <span v-if="index > 0" class="mr-2 text-green-400"
@@ -139,7 +140,7 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
         <span class="text-green-400">FE:\ivanhirskyy></span>
         <input
           ref="commandInput"
