@@ -1,14 +1,20 @@
 <template>
-  <div class="h-dvh w-full bg-gray-600 p-2">
-    <div class="flex h-full ">
+  <div class="background h-dvh w-full overflow-hidden bg-gray-950">
+    <StarryBackground />
+
+    <HoverTrail />
+    <div class="flex h-full">
       <!-- <FileExplorer /> -->
-      <div class="flex h-full bg-gray-800 flex-grow rounded-lg flex-col container m-auto border border-[1px] border-gray-800 shadow-lg overflow-hidden">
-        <div class="grow basis-0 overflow-y-auto">
-          <div class="max-w-7xl px-4 py-8 text-white lg:px-8 lg:py-4">
+      <div
+        class="container z-50 m-auto flex h-full flex-grow flex-col overflow-hidden rounded-lg shadow-md shadow-black"
+      >
+        <div class="grow basis-0 overflow-y-auto bg-gray-600 bg-opacity-90">
+          <div class="px-6 py-6 text-white lg:px-8 lg:py-8">
             <slot />
           </div>
         </div>
-        <TheTerminal />
+        <!-- <TheTerminal /> -->
+        <TheTerminalV2 />
       </div>
     </div>
   </div>

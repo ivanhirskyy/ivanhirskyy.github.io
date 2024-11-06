@@ -21,27 +21,49 @@ const mainTechnologies = [
 ];
 </script>
 <template>
-  <div>
+  <div class="column-layout gap-8 space-y-8">
     <!-- Header Section -->
-    <header class="relative flex justify-between gap-4">
-      <div class="space-y-4 lg:space-y-6">
-        <div class="header-area flex items-start gap-x-4 gap-y-3 sm:gap-y-2">
-          <NuxtImg
-            src="./avatar.webp"
-            width="80"
-            height="80"
-            class="avatar aspect-square max-h-full rounded-full"
-            alt="Ivan Hirskyy"
-          />
-          <h1 class="name text-3xl font-bold text-white sm:text-4xl">
-            Ivan Hirskyy
-          </h1>
+    <TheCard tag="header">
+      <div class="flex h-full flex-col justify-between gap-6">
+        <div class="flex flex-wrap gap-6">
+          <div
+            class="card-md shadow-card-md h-[140px] max-h-full w-[140px] shrink-0 overflow-hidden rounded-lg border-2 border-gray-900"
+          >
+            <NuxtImg
+              src="./avatar.webp"
+              width="240"
+              height="240"
+              class="avatar block aspect-square"
+              alt="Ivan Hirskyy"
+            />
+          </div>
+          <div class="flex grow flex-col justify-between gap-4">
+            <h1 class="name text-2xl font-medium text-gray-300 sm:text-4xl">
+              Ivan Hirskyy
+            </h1>
 
-          <p class="title text-xl text-gray-400">Frontend Developer</p>
+            <div class="flex items-center gap-2">
+              <span class="italic text-gray-400">Based in</span
+              ><span class="text-gray-300 transition hover:text-blue-500"
+                >Porto</span
+              >
+              <Icon
+                title="Portugal"
+                name="flag:pt-4x3"
+                size="16"
+                class="ml-2 rounded-sm border border-gray-400"
+              />
+            </div>
+
+            <p
+              class="title text-2xl font-bold text-gray-100 sm:text-3xl 2xl:text-5xl"
+            >
+              Front-end Developer
+            </p>
+          </div>
         </div>
-        <div>
+        <!-- <div>
           <div class="tech flex flex-wrap items-center gap-x-4 gap-y-2">
-            <!--  //on hover add text shadow -->
             <NuxtLink
               v-for="tech in mainTechnologies"
               :key="tech.name"
@@ -55,12 +77,10 @@ const mainTechnologies = [
               <Icon :name="tech.icon" size="25" />
             </NuxtLink>
           </div>
-        </div>
-        <div class="flex flex-wrap gap-4 text-gray-400 lg:gap-8">
-          <p class="flex items-center gap-1">
-            <Icon name="mdi:map-marker" size="18" /> Porto, Portugal
-          </p>
-          <a
+        </div> -->
+      </div>
+    </TheCard>
+    <!-- <a
             href="tel:+351938028711"
             class="flex items-center gap-1 text-teal-400 hover:underline"
           >
@@ -71,18 +91,40 @@ const mainTechnologies = [
             class="flex items-center gap-1 text-teal-400 hover:underline"
           >
             <Icon name="mdi:envelope" size="18" />ivan.hirskyy@gmail.com
-          </a>
-        </div>
-      </div>
-      <!-- <AnalogClock class="max-md:absolute max-md:bottom-0 max-md:right-0" /> -->
-    </header>
-
-    <hr class="my-4 border-gray-600" />
+          </a> -->
+    <!-- <AnalogClock class="max-md:absolute max-md:bottom-0 max-md:right-0" /> -->
 
     <!-- Summary Section -->
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-white">Summary</h2>
-      <p class="mt-2 text-gray-300">
+
+    <!-- Current Role Section -->
+    <TheCard tag="section" title="Experience">
+      <div>
+        <p class="italic text-gray-400">
+          2022-Present - Niw, Front-end Developer
+        </p>
+        <ul class="ml-5 mt-2 list-disc text-gray-300">
+          <li>
+            Front-end development for global automotive brands such as Toyota,
+            Ford, Lexus, and Nissan.
+          </li>
+          <li>
+            Developed a custom CMS product to improve content management, SEO,
+            and website efficiency for 15+ projects.
+          </li>
+          <li>
+            Collaborated with cross-functional teams using Git, Jira, and
+            Confluence, ensuring smooth project execution.
+          </li>
+          <li>
+            Implemented end-to-end testing with Cypress and Jest to maintain
+            high code quality and performance.
+          </li>
+        </ul>
+      </div>
+    </TheCard>
+
+    <TheCard tag="section" title="Summary">
+      <p>
         I'm a Front-end Developer with 5 years of experience building fast,
         responsive websites and applications. Skilled in Vue, Nuxt, CSS, and
         TypeScript, I've worked on projects for ecommerce and automotive
@@ -90,37 +132,9 @@ const mainTechnologies = [
         tackling complex challenges and transforming design concepts into
         smooth, functional experiences.
       </p>
-    </section>
+    </TheCard>
 
-    <!-- Current Role Section -->
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-white">Current Role</h2>
-      <p class="italic text-gray-400">
-        2022-Present - Niw, Front-end Developer
-      </p>
-      <ul class="ml-5 mt-2 list-disc text-gray-300">
-        <li>
-          Lead front-end development for global automotive brands such as
-          Toyota, Ford, Lexus, and Nissan.
-        </li>
-        <li>
-          Developed a custom CMS product to improve content management, SEO, and
-          website efficiency for 15+ projects.
-        </li>
-        <li>
-          Collaborated with cross-functional teams using Git, Jira, and
-          Confluence, ensuring smooth project execution.
-        </li>
-        <li>
-          Implemented end-to-end testing with Cypress and Jest to maintain high
-          code quality and performance.
-        </li>
-      </ul>
-    </section>
-
-    <!-- Previous Role Section -->
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-white">Previous Role</h2>
+    <TheCard tag="section">
       <p class="italic text-gray-400">
         2019-2022 - Redicom, Front-end Developer
       </p>
@@ -138,10 +152,10 @@ const mainTechnologies = [
           engagement.
         </li>
       </ul>
-    </section>
+    </TheCard>
 
     <!-- Skills Section -->
-    <section>
+    <TheCard tag="section">
       <h2 class="text-2xl font-semibold text-white">Skills</h2>
       <div class="mt-2 grid grid-cols-1 gap-4 text-gray-300 sm:grid-cols-2">
         <div>
@@ -163,7 +177,7 @@ const mainTechnologies = [
           <p><span class="font-semibold">Build Tools:</span> Webpack, Vite</p>
         </div>
       </div>
-    </section>
+    </TheCard>
   </div>
 </template>
 
@@ -203,5 +217,9 @@ const mainTechnologies = [
 
 .header-area .tech {
   grid-area: tech;
+}
+
+.column-layout {
+  columns: 2 350px;
 }
 </style>
