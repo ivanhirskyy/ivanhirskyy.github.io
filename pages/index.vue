@@ -23,63 +23,20 @@ const mainTechnologies = [
 <template>
   <div class="column-layout gap-8 space-y-8">
     <!-- Header Section -->
-    <TheCard tag="header">
-      <div class="flex h-full flex-col justify-between gap-6">
-        <div class="flex flex-wrap gap-6">
-          <div
-            class="card-md shadow-card-md h-[140px] max-h-full w-[140px] shrink-0 overflow-hidden rounded-lg border-2 border-gray-900"
-          >
-            <NuxtImg
-              src="./avatar.webp"
-              width="240"
-              height="240"
-              class="avatar block aspect-square"
-              alt="Ivan Hirskyy"
-            />
-          </div>
-          <div class="flex grow flex-col justify-between gap-4">
-            <h1 class="name text-2xl font-medium text-gray-300 sm:text-4xl">
-              Ivan Hirskyy
-            </h1>
+    <MeCard />
 
-            <div class="flex items-center gap-2">
-              <span class="italic text-gray-400">Based in</span
-              ><span class="text-gray-300 transition hover:text-blue-500"
-                >Porto</span
-              >
-              <Icon
-                title="Portugal"
-                name="flag:pt-4x3"
-                size="16"
-                class="ml-2 rounded-sm border border-gray-400"
-              />
-            </div>
-
-            <p
-              class="title text-2xl font-bold text-gray-100 sm:text-3xl 2xl:text-5xl"
-            >
-              Front-end Developer
-            </p>
-          </div>
-        </div>
-        <!-- <div>
-          <div class="tech flex flex-wrap items-center gap-x-4 gap-y-2">
-            <NuxtLink
-              v-for="tech in mainTechnologies"
-              :key="tech.name"
-              :to="tech.link"
-              class="custom-class flex cursor-pointer items-center gap-1 text-xl transition-all duration-150"
-              :style="{
-                color: tech.color,
-              }"
-            >
-              {{ tech.name }}
-              <Icon :name="tech.icon" size="25" />
-            </NuxtLink>
-          </div>
-        </div> -->
-      </div>
+    <TheCard tag="section" title="About me">
+      <p class="text-gray-200">
+        I'm a <span class="text-teal-300">Front-end Developer</span> with
+        <span class="text-teal-300">5 years of experience</span> building fast,
+        responsive websites and applications. Skilled in Vue, Nuxt, CSS, and
+        TypeScript, I've worked on projects for ecommerce and automotive
+        clients, always focusing on clean code and user-friendly design. I enjoy
+        tackling complex challenges and transforming design concepts into
+        smooth, functional experiences.
+      </p>
     </TheCard>
+    <ExperienceCard />
     <!-- <a
             href="tel:+351938028711"
             class="flex items-center gap-1 text-teal-400 hover:underline"
@@ -95,64 +52,6 @@ const mainTechnologies = [
     <!-- <AnalogClock class="max-md:absolute max-md:bottom-0 max-md:right-0" /> -->
 
     <!-- Summary Section -->
-
-    <!-- Current Role Section -->
-    <TheCard tag="section" title="Experience">
-      <div>
-        <p class="italic text-gray-400">
-          2022-Present - Niw, Front-end Developer
-        </p>
-        <ul class="ml-5 mt-2 list-disc text-gray-300">
-          <li>
-            Front-end development for global automotive brands such as Toyota,
-            Ford, Lexus, and Nissan.
-          </li>
-          <li>
-            Developed a custom CMS product to improve content management, SEO,
-            and website efficiency for 15+ projects.
-          </li>
-          <li>
-            Collaborated with cross-functional teams using Git, Jira, and
-            Confluence, ensuring smooth project execution.
-          </li>
-          <li>
-            Implemented end-to-end testing with Cypress and Jest to maintain
-            high code quality and performance.
-          </li>
-        </ul>
-      </div>
-    </TheCard>
-
-    <TheCard tag="section" title="Summary">
-      <p>
-        I'm a Front-end Developer with 5 years of experience building fast,
-        responsive websites and applications. Skilled in Vue, Nuxt, CSS, and
-        TypeScript, I've worked on projects for ecommerce and automotive
-        clients, always focusing on clean code and user-friendly design. I enjoy
-        tackling complex challenges and transforming design concepts into
-        smooth, functional experiences.
-      </p>
-    </TheCard>
-
-    <TheCard tag="section">
-      <p class="italic text-gray-400">
-        2019-2022 - Redicom, Front-end Developer
-      </p>
-      <ul class="ml-5 mt-2 list-disc text-gray-300">
-        <li>
-          Built and maintained high-traffic ecommerce websites for leading
-          brands.
-        </li>
-        <li>
-          Delivered scalable and responsive solutions across 100+ projects,
-          using JavaScript, HTML, CSS, and AngularJS.
-        </li>
-        <li>
-          Optimized user interfaces to improve page load times and user
-          engagement.
-        </li>
-      </ul>
-    </TheCard>
 
     <!-- Skills Section -->
     <TheCard tag="section">
