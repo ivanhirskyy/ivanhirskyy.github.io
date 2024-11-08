@@ -1,37 +1,20 @@
-<script setup lang="ts">
-const mainTechnologies = [
-  {
-    name: 'Nuxt',
-    icon: 'mdi:nuxt',
-    color: '#00DC82',
-    link: 'https://nuxtjs.org',
-  },
-  {
-    name: 'Vue',
-    icon: 'mdi:vuejs',
-    color: '#42b883',
-    link: 'https://vuejs.org',
-  },
-  {
-    name: 'TypeScript',
-    icon: 'mdi:language-typescript',
-    color: '#60a5fa',
-    link: 'https://www.typescriptlang.org/',
-  },
-];
-</script>
 <template>
   <div class="column-layout gap-8 space-y-8">
     <MeCard />
     <TheCard tag="section" title="About me">
-      <p class="text-gray-200">
-        I'm a <span class="text-teal-300">Front-end Developer</span> with
-        <span class="text-teal-300">5 years of experience</span> building fast,
-        responsive websites and applications. Skilled in Vue, Nuxt, CSS, and
-        TypeScript, I've worked on projects for ecommerce and automotive
-        clients, always focusing on clean code and user-friendly design. I enjoy
-        tackling complex challenges and transforming design concepts into
-        smooth, functional experiences.
+      <p class="font-light text-gray-200">
+        I'm a Front-End Developer with five years of hands-on experience in
+        building web projects with Vue, Nuxt, CSS, and TypeScript. I’ve worked
+        on a range of sites and applications for ecommerce and automotive
+        brands, focusing on creating smooth, engaging user experiences. I enjoy
+        the challenge of bringing a design to life and making sure every
+        interaction feels intuitive and refined.
+        <br />
+        <br />
+        Outside of work, my interests include hiking, exploring the world,
+        health and staying active with sports. I'm always looking for new ways
+        to grow and learn, so I can keep pushing myself to be better than I was
+        yesterday.
       </p>
     </TheCard>
     <ExperienceCard />
@@ -39,7 +22,7 @@ const mainTechnologies = [
   </div>
 </template>
 
-<style scoped>
+<!-- <style scoped>
 .custom-class:hover,
 .custom-class:hover span {
   text-shadow: 0 0 8px currentColor;
@@ -80,4 +63,4 @@ const mainTechnologies = [
 .column-layout {
   columns: 2 350px;
 }
-</style>
+</style> -->

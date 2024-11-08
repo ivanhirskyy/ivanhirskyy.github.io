@@ -10,6 +10,7 @@ const terminal = useTemplateRef('terminal');
 let isResizing = ref(false);
 let startY = ref(0);
 let startHeight = ref(160);
+const isFocused = ref(false);
 
 const logToTerminal = (message: string) => {
   if (logs.value.length > 20) {
@@ -100,6 +101,14 @@ onUnmounted(() => {
   document.removeEventListener('mousemove', handleResize);
   document.removeEventListener('mouseup', handleMouseUp);
 });
+
+const handleFocus = () => {
+  isFocused.value = true;
+};
+
+const handleBlur = () => {
+  isFocused.value = false;
+};
 </script>
 
 <template>
@@ -118,7 +127,7 @@ onUnmounted(() => {
     <div
       ref="terminal"
       tabindex="0"
-      class="relative max-h-[50dvh] min-h-[160px] cursor-default overflow-y-auto border-t border-gray-700 bg-gray-800 bg-opacity-95 px-4 py-4 font-mono leading-6 text-white lg:px-8 lg:py-4"
+      class="relative max-h-[50dvh] min-h-[160px] cursor-default overflow-y-auto border-t border-gray-700 bg-gray-900 bg-opacity-95 px-4 py-4 font-mono leading-6 text-white lg:px-8 lg:py-4"
       :class="{ 'select-none': isResizing }"
       @click="commandInput?.focus()"
     >
@@ -146,11 +155,13 @@ onUnmounted(() => {
             class="terminal-input fixed grow cursor-default border-none bg-transparent text-yellow-400 opacity-0 outline-none"
             autofocus
             @keydown.enter="handleKeydown"
+            @focus="handleFocus"
+            @blur="handleBlur"
           />
           <div class="flex items-center gap-[1px]">
             {{ currentCommand }}
             <div
-              v-if="!isResizing"
+              v-if="!isResizing && isFocused"
               class="animate-blink h-4 w-2 bg-yellow-400"
             ></div>
           </div>
