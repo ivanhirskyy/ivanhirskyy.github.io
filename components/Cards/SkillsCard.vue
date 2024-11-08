@@ -52,16 +52,15 @@ const filteredSkills = computed(() => {
 <template>
   <TheCard tag="section" title="Skills">
     <template #head>
-      <div class="w-48 max-w-sm">
+      <div class="w-56 max-w-sm">
         <div class="relative">
           <input
             ref="searchEl"
             v-model="search"
             type="text"
-            class="ease font-regular block w-full rounded-md border border-gray-400 bg-teal-950 bg-transparent py-2 pl-3 pr-10 text-sm text-gray-50 shadow-sm transition duration-300 placeholder:text-gray-400 hover:border-gray-50 focus:border-gray-50 focus:shadow focus:outline-none"
+            class="ease font-regular block w-full rounded-md border border-gray-400 bg-teal-950 bg-transparent py-2 pl-3 pr-20 text-[16px] leading-normal text-gray-50 shadow-sm transition duration-300 placeholder:text-gray-400 hover:border-gray-50 focus:border-gray-50 focus:shadow focus:outline-none"
             placeholder="Search skills..."
           />
-          <!-- delete icon -->
           <Transition>
             <Icon
               v-if="search"
@@ -85,7 +84,7 @@ const filteredSkills = computed(() => {
     <transition-group
       v-if="filteredSkills.length > 0"
       tag="ul"
-      class="xxs:grid-cols-2 grid grid-cols-1 gap-6 sm:grid-cols-3 xl:grid-cols-4"
+      class="grid grid-cols-1 gap-6 xxs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-4"
     >
       <li
         v-for="skill in filteredSkills"

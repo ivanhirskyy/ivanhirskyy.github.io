@@ -36,10 +36,12 @@ const experiences = [
       <div v-for="experience in experiences" :key="experience.title">
         <div class="exp relative">
           <div class="exp__header relative flex items-center justify-between">
-            <p class="text-lg font-medium text-gray-100">
+            <p class="text-md font-medium text-gray-100 md:text-lg">
               {{ experience.title }}
             </p>
-            <p class="font-mono italic text-gray-400">{{ experience.date }}</p>
+            <p class="text-right font-mono italic text-gray-400 max-sm:text-sm">
+              {{ experience.date }}
+            </p>
           </div>
 
           <ul class="mt-3 list-disc pl-5 font-light text-gray-100">

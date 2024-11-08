@@ -1,9 +1,9 @@
 <template>
   <TheCard tag="header">
     <div class="flex h-full flex-col justify-between gap-6">
-      <div class="max-xs:flex-col flex gap-4 sm:gap-6">
+      <div class="flex gap-4 max-xs:flex-col sm:gap-6">
         <div
-          class="card-md xs:h-[180px] xs:w-[180px] max-h-full shrink-0 overflow-hidden rounded-lg border-2 border-gray-900 shadow-card-md"
+          class="card-md max-h-full shrink-0 overflow-hidden rounded-lg border-2 border-gray-900 shadow-card-md xs:h-[180px] xs:w-[180px]"
         >
           <NuxtImg
             src="./avatar.webp"
@@ -23,24 +23,24 @@
               <span class="italic text-gray-400">Born in</span>
               <span class="split-text ukraine">Ukraine</span>
 
-              <Icon
+              <!-- <Icon
                 title="Ukraine"
                 name="flag:ua-4x3"
                 size="16"
                 class="rounded-sm"
-              />
+              /> -->
             </div>
 
             <div class="flex items-center gap-2">
               <span class="italic text-gray-400">Living in</span>
               <span class="split-text portugal">Portugal</span>
 
-              <Icon
+              <!-- <Icon
                 title="Portugal"
                 name="flag:pt-4x3"
                 size="16"
                 class="rounded-sm"
-              />
+              /> -->
             </div>
           </div>
 
@@ -73,7 +73,7 @@
 
 <style scoped>
 .ukraine {
-  background: linear-gradient(to bottom, #0057b7 50%, #ffd700 50%);
+  background: linear-gradient(to bottom, #0168d6 50%, #ffd700 50%);
 }
 
 .portugal {

@@ -11,7 +11,7 @@ const props = defineProps<{
   >
     <div
       v-if="props.title"
-      class="card-head z-10 flex justify-between gap-4 rounded-t-md bg-teal-900 p-4 py-3 text-3xl font-medium shadow-card-head sm:p-6 sm:py-4"
+      class="card-head z-10 flex items-center justify-between gap-4 rounded-t-md bg-teal-900 p-4 py-3 text-xl font-medium shadow-card-head sm:p-6 sm:py-4 sm:text-2xl md:text-3xl"
     >
       {{ props.title }}
       <slot name="head"></slot>
