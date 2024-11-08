@@ -1,10 +1,4 @@
 <script setup lang="ts">
-const props = defineProps<{
-  tag?: string;
-  title?: string;
-  contentClass: string;
-}>();
-
 const experiences = [
   {
     title: 'Niw · Front-end Developer',
@@ -39,73 +33,6 @@ const experiences = [
 <template>
   <TheCard tag="section" title="Experience">
     <div class="space-y-6">
-      <!-- <div class="exp relative">
-        <div class="exp__header relative text-gray-400">
-          <p class="font-mono italic">2022-Present</p>
-        </div>
-        <p class="font-medium">Niw · Front-end Developer</p>
-        <ul class="ml-5 mt-2 list-disc text-gray-300">
-          <li>
-            Front-end development for global automotive brands such as Toyota,
-            Ford, Lexus, and Nissan.
-          </li>
-          <li>
-            Developed a custom CMS product to improve content management, SEO,
-            and website efficiency for 15+ projects.
-          </li>
-          <li>
-            Collaborated with cross-functional teams using Git, Jira, and
-            Confluence, ensuring smooth project execution.
-          </li>
-          <li>
-            Implemented end-to-end testing with Cypress and Jest to maintain
-            high code quality and performance.
-          </li>
-        </ul>
-      </div>
-      <div class="exp relative">
-        <p class="exp__header relative flex justify-between">
-          <span class="font-bold text-gray-200"
-            >Redicom · Front-end Developer</span
-          >
-          <span class="font-mono italic text-gray-400">2019-2022</span>
-        </p>
-        <ul class="ml-5 mt-2 list-disc text-gray-300">
-          <li>
-            Built and maintained high-traffic ecommerce websites for leading
-            brands.
-          </li>
-          <li>
-            Delivered scalable and responsive solutions across 100+ projects,
-            using JavaScript, HTML, CSS, and AngularJS.
-          </li>
-          <li>
-            Optimized user interfaces to improve page load times and user
-            engagement.
-          </li>
-        </ul>
-      </div>
-      <div class="exp relative">
-        <p class="exp__header relative text-gray-300">
-          <span class="font-mono italic text-gray-400">2019</span> -
-          <span class="font-bold text-gray-300">Domoweb</span> - Web Developer
-          Intern
-        </p>
-        <ul class="ml-5 mt-2 list-disc text-gray-300">
-          <li>
-            Developed custom websites and applications for small businesses and
-            startups.
-          </li>
-          <li>
-            Collaborated with clients to understand their needs and deliver
-            tailored solutions.
-          </li>
-          <li>
-            Implemented responsive design and SEO best practices to enhance user
-            experience and search engine visibility.
-          </li>
-        </ul>
-      </div> -->
       <div v-for="experience in experiences" :key="experience.title">
         <div class="exp relative">
           <div class="exp__header relative flex items-center justify-between">
@@ -115,7 +42,7 @@ const experiences = [
             <p class="font-mono italic text-gray-400">{{ experience.date }}</p>
           </div>
 
-          <ul class="ml-5 mt-3 list-disc text-gray-200">
+          <ul class="mt-3 list-disc pl-5 font-light text-gray-100">
             <li v-for="desc in experience.description" :key="desc">
               {{ desc }}
             </li>

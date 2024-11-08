@@ -1,15 +1,15 @@
 <template>
   <TheCard tag="header">
     <div class="flex h-full flex-col justify-between gap-6">
-      <div class="flex flex-wrap gap-6">
+      <div class="max-xs:flex-col flex gap-4 sm:gap-6">
         <div
-          class="card-md h-[140px] max-h-full w-[140px] shrink-0 overflow-hidden rounded-lg border-2 border-gray-900 shadow-card-md"
+          class="card-md xs:h-[140px] xs:w-[140px] max-h-full shrink-0 overflow-hidden rounded-lg border-2 border-gray-900 shadow-card-md"
         >
           <NuxtImg
             src="./avatar.webp"
-            width="240"
-            height="240"
-            class="avatar block aspect-square"
+            width="360"
+            height="360"
+            class="avatar block aspect-square h-full w-full object-cover"
             alt="Ivan Hirskyy"
           />
         </div>
@@ -32,7 +32,7 @@
           </div>
 
           <p
-            class="title text-2xl font-bold text-gray-100 sm:text-3xl 2xl:text-5xl"
+            class="title text-2xl font-bold text-gray-100 sm:text-3xl 2xl:text-4xl"
           >
             Front-end Developer
           </p>

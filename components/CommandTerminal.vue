@@ -103,55 +103,57 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div
-    class="relative left-0 top-0 z-10 h-[3px] w-full cursor-ns-resize transition-all duration-300"
-    :style="{ 'background-color': isResizing ? '#F6EB61' : '#fff' }"
-    @mousedown="handleMouseDown"
-  >
+  <div>
     <div
-      class="absolute left-1/2 top-1/2 flex h-[16px] w-[24px] -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-md bg-yellow-300"
+      class="relative left-0 top-0 z-10 h-[3px] w-full cursor-ns-resize transition-all duration-300"
+      :style="{ 'background-color': isResizing ? '#F6EB61' : '#fff' }"
+      @mousedown="handleMouseDown"
     >
-      <Icon name="mdi:resize-vertical" class="text-black" />
-    </div>
-  </div>
-  <div
-    ref="terminal"
-    tabindex="0"
-    class="relative max-h-[50dvh] min-h-[160px] cursor-default overflow-y-auto border-t border-gray-700 bg-gray-800 bg-opacity-95 px-4 py-4 font-mono leading-6 text-white lg:px-8 lg:py-4"
-    :class="{ 'select-none': isResizing }"
-    @click="commandInput?.focus()"
-  >
-    <div class="flex max-w-7xl flex-col gap-3">
-      <div v-if="logs.length" class="flex flex-col space-y-3">
-        <div
-          v-for="(log, index) in logs"
-          :key="index"
-          class="whitespace-break-spaces break-all"
-          style="overflow-wrap: anywhere; word-break: normal"
-        >
-          <p>
-            <span v-if="index > 0" class="mr-2 text-green-400"
-              >FE:\ivanhirskyy></span
-            >{{ log }}
-          </p>
-        </div>
+      <div
+        class="absolute left-1/2 top-1/2 flex h-[16px] w-[24px] -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-md bg-yellow-300"
+      >
+        <Icon name="mdi:resize-vertical" class="text-black" />
       </div>
-
-      <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span class="text-green-400">FE:\ivanhirskyy></span>
-        <input
-          ref="commandInput"
-          v-model="currentCommand"
-          class="terminal-input fixed grow cursor-default border-none bg-transparent text-yellow-400 opacity-0 outline-none"
-          autofocus
-          @keydown.enter="handleKeydown"
-        />
-        <div class="flex items-center gap-[1px]">
-          {{ currentCommand }}
+    </div>
+    <div
+      ref="terminal"
+      tabindex="0"
+      class="relative max-h-[50dvh] min-h-[160px] cursor-default overflow-y-auto border-t border-gray-700 bg-gray-800 bg-opacity-95 px-4 py-4 font-mono leading-6 text-white lg:px-8 lg:py-4"
+      :class="{ 'select-none': isResizing }"
+      @click="commandInput?.focus()"
+    >
+      <div class="flex max-w-7xl flex-col gap-3">
+        <div v-if="logs.length" class="flex flex-col space-y-3">
           <div
-            v-if="!isResizing"
-            class="animate-blink h-4 w-2 bg-yellow-400"
-          ></div>
+            v-for="(log, index) in logs"
+            :key="index"
+            class="whitespace-break-spaces break-all"
+            style="overflow-wrap: anywhere; word-break: normal"
+          >
+            <p>
+              <span v-if="index > 0" class="mr-2 text-green-400"
+                >FE:\ivanhirskyy></span
+              >{{ log }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span class="text-green-400">FE:\ivanhirskyy></span>
+          <input
+            ref="commandInput"
+            v-model="currentCommand"
+            class="terminal-input fixed grow cursor-default border-none bg-transparent text-yellow-400 opacity-0 outline-none"
+            autofocus
+            @keydown.enter="handleKeydown"
+          />
+          <div class="flex items-center gap-[1px]">
+            {{ currentCommand }}
+            <div
+              v-if="!isResizing"
+              class="animate-blink h-4 w-2 bg-yellow-400"
+            ></div>
+          </div>
         </div>
       </div>
     </div>
